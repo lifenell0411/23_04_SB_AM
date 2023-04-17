@@ -42,4 +42,12 @@ public interface MemberRepository {
 			""")
 	Member getMemberByLoginId(String loginId);
 
+	@Select("""
+			SELECT *
+			FROM `member`
+			WHERE name = #{name}
+			AND email = #{email}
+			""")
+	Member getMemberByNameAndEmail(String name, String email);
+
 }

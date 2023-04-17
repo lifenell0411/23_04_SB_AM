@@ -3,15 +3,18 @@ package com.KoreaIT.bjw.demo.util;
 public class Ut {
 
 	public static boolean empty(Object obj) {
+
 		if (obj == null) {
 			return true;
 		}
-		if (obj instanceof String == false) {
-			String str = (String) obj;
-			return str.trim().length() == 0;
-		}
-		return false;
 
+		if (obj instanceof String == false) {
+			return true;
+		}
+
+		String str = (String) obj;
+
+		return str.trim().length() == 0;
 	}
 
 }
