@@ -1,6 +1,5 @@
 package com.KoreaIT.bjw.demo.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,10 +16,14 @@ public class UsrMemberController {
 
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public Member doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum,
+	public Object doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum,
 			String email) {
 
 		int id = memberService.join(loginId, loginPw, name, nickname, cellphoneNum, email);
+
+		if (id == -1) {
+			return "이미 사용중인 아이디입니다";
+		}
 
 		Member member = memberService.getMemberById(id);
 

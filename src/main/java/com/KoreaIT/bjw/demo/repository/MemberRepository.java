@@ -35,4 +35,11 @@ public interface MemberRepository {
 			""")
 	int getLastInsertId();
 
+	@Select("""
+			SELECT *
+			FROM `member`
+			WHERE loginId = #{loginId}
+			""")
+	Member getMemberByLoginId(String loginId);
+
 }
