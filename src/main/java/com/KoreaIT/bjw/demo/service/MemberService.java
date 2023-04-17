@@ -14,12 +14,13 @@ public class MemberService {
 	}
 
 	public int join(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email) {
-
+// 로구안어아다 중복체크
 		Member existsMember = getMemberByLoginId(loginId);
 
 		if (existsMember != null) {
 			return -1;
 		}
+		// 이름 + 이메일 중복체크
 
 		memberRepository.join(loginId, loginPw, name, nickname, cellphoneNum, email);
 
@@ -33,5 +34,7 @@ public class MemberService {
 	public Member getMemberById(int id) {
 		return memberRepository.getMemberById(id);
 	}
+
+	 
 
 }
