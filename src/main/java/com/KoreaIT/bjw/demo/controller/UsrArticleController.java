@@ -47,12 +47,21 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public Article doWrite(String title, String body) {
-		int id = articleService.writeArticle(title, body);
+	public ResultData doWrite(String title, String body) {
+		if (Ut.empty(title)) {
+			return ResultData.from("F-1", "제목을 입력해주세요");
+		}
+		if (Ut.empty(body)) {
+			return ResultData.from("F-2", "내용을 입력해주세요");
+		}
+
+		ResultData writeArticleRd = articleService.writeArticle(title, body);
+
+		int id = (int) writeArticleRd.getData1();
 
 		Article article = articleService.getArticle(id);
 
-		return article;
+		return ResultData.from(writeArticleRd.getResultCode(), writeArticleRd.getMsg(), article);
 	}
 
 	@RequestMapping("/usr/article/getArticles")
@@ -71,7 +80,7 @@ public class UsrArticleController {
 			return ResultData.from("F-1", Ut.f("%d번 게시물은 존재하지 않습니다", id));
 		}
 
-		return ResultData.from("S-1", Ut.f("%d번 게시물입니다", id),article);
+		return ResultData.from("S-1", Ut.f("%d번 게시물입니다", id), article);
 	}
 
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.KoreaIT.bjw.demo.service.MemberService;
 import com.KoreaIT.bjw.demo.util.Ut;
 import com.KoreaIT.bjw.demo.vo.Member;
+import com.KoreaIT.bjw.demo.vo.ResultData;
 
 @Controller
 public class UsrMemberController {
@@ -51,7 +52,7 @@ public class UsrMemberController {
 
 		Member member = memberService.getMemberById(id);
 
-		return member;
+		return ResultData.from("S-1", Ut.f("%d번 회원가입완료", id), member);
 	}
 
 }
