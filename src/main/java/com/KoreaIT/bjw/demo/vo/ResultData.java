@@ -10,7 +10,7 @@ public class ResultData<DT> {
 	@Getter
 	private DT data1;
 
-	public static <DT> ResultData<DT>from(String resultCode, String msg) {
+	public static <DT> ResultData<DT> from(String resultCode, String msg) {
 		return from(resultCode, msg, null);
 	}
 
@@ -31,7 +31,7 @@ public class ResultData<DT> {
 		return isSuccess() == false;
 	}
 
-	public static <DT>ResultData<DT> newData(ResultData joinRd, DT newData) {
+	public static <DT> ResultData<DT> newData(ResultData joinRd, DT newData) {
 		return from(joinRd.getResultCode(), joinRd.getMsg(), newData);
 	}
 }
