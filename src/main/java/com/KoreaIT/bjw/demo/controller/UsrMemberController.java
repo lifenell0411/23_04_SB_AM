@@ -46,7 +46,7 @@ public class UsrMemberController {
 		}
 
 		if (id == -2) {
-			return Ut.f("이미 사용중인 이름(%s)과 이메일(%s)입니다", name, email);
+			return String.format("이미 사용중인 이름(%s)과 이메일(%s)입니다", name, email);
 		}
 
 		Member member = memberService.getMemberById(id);
