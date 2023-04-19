@@ -7,7 +7,7 @@
 </head>
 <body>
 
-		<div>MAIN 123</div>
+		<h1>MAIN</h1>
 
 </body>
 </html>
