@@ -41,18 +41,19 @@ public class UsrArticleController {
 			return ResultData.from("F-1", Ut.f("%d번 글은 존재하지 않습니다", id), id);
 		}
 
-		if (article.getMemberId() != loginedMemberId) {
-			return ResultData.from("F-2", Ut.f("%d번 글에 대한 권한이 없습니다", id), id);
-		}
-		articleService.modifyArticle(id, title, body);
+		ResultData actorCanModifyRd = articleService.actorCanModify(loginedMemberId, article);
 
-		return ResultData.from("S-1", Ut.f("%d번 글을 수정 했습니다", id), id);
+		if (actorCanModifyRd.isFail()) {
+			return actorCanModifyRd;
+		}
+
+		return articleService.modifyArticle(id, title, body);
+
 	}
 
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
 	public ResultData<Integer> doDelete(HttpSession httpSession, int id) {
-
 		boolean isLogined = false;
 		int loginedMemberId = 0;
 
@@ -71,8 +72,9 @@ public class UsrArticleController {
 		}
 
 		if (article.getMemberId() != loginedMemberId) {
-			return ResultData.from("F-2", Ut.f("%d번 글에 대한 권한이 없습니다", id), id);
+			return ResultData.from("F-2", Ut.f("%d번 글에 대한 권한이 없습니다", id));
 		}
+
 		articleService.deleteArticle(id);
 
 		return ResultData.from("S-1", Ut.f("%d번 글을 삭제 했습니다", id), id);
