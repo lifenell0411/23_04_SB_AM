@@ -1,5 +1,6 @@
 package com.KoreaIT.bjw.demo.controller;
 
+
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -113,11 +114,12 @@ public class UsrArticleController {
 		return ResultData.newData(writeArticleRd, "article", article);
 	}
 
-	@RequestMapping("/usr/article/getArticles")
-	
-	public String getArticles(Model model) {
+	@RequestMapping("/usr/article/list")
+	public String showList(Model model) {
 		List<Article> articles = articleService.articles();
+
 		model.addAttribute("articles", articles);
+
 		return "usr/article/list";
 	}
 
@@ -130,8 +132,8 @@ public class UsrArticleController {
 		if (article == null) {
 			return ResultData.from("F-1", Ut.f("%d번 게시물은 존재하지 않습니다", id));
 		}
-		return ResultData.from("S-1", Ut.f("%d번 게시물입니다", id), "article", article);
 
+		return ResultData.from("S-1", Ut.f("%d번 게시물입니다", id), "article", article);
 	}
 
 }
