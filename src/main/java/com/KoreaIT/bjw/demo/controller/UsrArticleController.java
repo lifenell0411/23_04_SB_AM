@@ -1,6 +1,5 @@
 package com.KoreaIT.bjw.demo.controller;
 
-
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -15,6 +14,7 @@ import com.KoreaIT.bjw.demo.service.ArticleService;
 import com.KoreaIT.bjw.demo.util.Ut;
 import com.KoreaIT.bjw.demo.vo.Article;
 import com.KoreaIT.bjw.demo.vo.ResultData;
+
 @Controller
 public class UsrArticleController {
 

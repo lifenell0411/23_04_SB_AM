@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper
 	namespace="com.KoreaIT.bjw.demo.repository.ArticleRepository">
 
@@ -13,19 +14,6 @@
 		`body`= #{body}
 	</insert>
 
-	<select id="getArticles" resultType="Article">
-		SELECT *
-		FROM article
-		ORDER BY
-		id DESC
-	</select>
-
-	<select id="getArticle" resultType="Article">
-		SELECT *
-		FROM article
-		WHERE id
-		= #{id}
-	</select>
 
 	<delete id="deleteArticle">
 		DELETE FROM
