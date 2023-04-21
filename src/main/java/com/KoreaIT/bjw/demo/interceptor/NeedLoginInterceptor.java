@@ -9,13 +9,18 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import com.KoreaIT.bjw.demo.vo.Rq;
 
 @Component
-public class BeforeActionInterceptor implements HandlerInterceptor {
+public class NeedLoginInterceptor implements HandlerInterceptor {
 
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler) throws Exception {
+		Rq rq = (Rq) req.getAttribute("rq");
 
-		Rq rq = new Rq(req, resp);
-		req.setAttribute("rq", rq);
+		if (!rq.isLogined()) {
+//			resp.getWriter().append("<script~~~~)
+
+			rq.printHitoryBackJs("로그인 후 이용해 주세요");
+			return false;
+		}
 
 		return HandlerInterceptor.super.preHandle(req, resp, handler);
 	}
