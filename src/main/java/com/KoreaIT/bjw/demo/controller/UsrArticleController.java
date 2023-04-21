@@ -61,25 +61,18 @@ public class UsrArticleController {
 		return Ut.jsReplace(Ut.f("%d번 글을 삭제 했습니다", id), "../article/list");
 	}
 
-	@RequestMapping("/usr/article/doWrite")
-	@ResponseBody
-	public ResultData<Article> doWrite(HttpServletRequest req, String title, String body) {
+	@RequestMapping("/usr/article/write")
+	public String doWrite(Model model, HttpServletRequest req, String title, String body) {
 		Rq rq = (Rq) req.getAttribute("rq");
 
-		if (Ut.empty(title)) {
-			return ResultData.from("F-1", "제목을 입력해주세요");
-		}
-		if (Ut.empty(body)) {
-			return ResultData.from("F-2", "내용을 입력해주세요");
-		}
+//	 
+//		ResultData<Integer> writeArticleRd = articleService.writeArticle(rq.getLoginedMemberId(), title, body);
+//
+//		int id = (int) writeArticleRd.getData1();
+//
+//		Article article = articleService.getArticle(id);
 
-		ResultData<Integer> writeArticleRd = articleService.writeArticle(rq.getLoginedMemberId(), title, body);
-
-		int id = (int) writeArticleRd.getData1();
-
-		Article article = articleService.getArticle(id);
-
-		return ResultData.newData(writeArticleRd, "article", article);
+		return "usr/article/write";
 	}
 
 	@RequestMapping("/usr/article/list")
