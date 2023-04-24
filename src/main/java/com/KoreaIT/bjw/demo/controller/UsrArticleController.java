@@ -22,24 +22,47 @@ public class UsrArticleController {
 	@Autowired
 	private ArticleService articleService;
 
-	@RequestMapping("/usr/article/doModify")
-	@ResponseBody
-	public ResultData<Integer> doModify(HttpServletRequest req, int id, String title, String body) {
+	@RequestMapping("/usr/article/modify")
+	public String showModify(HttpServletRequest req, Model model, int id) {
 		Rq rq = (Rq) req.getAttribute("rq");
 
-		Article article = articleService.getArticle(id);
+		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
+
 		if (article == null) {
-			return ResultData.from("F-1", Ut.f("%d번 글은 존재하지 않습니다", id), "id", id);
+			return rq.jsHitoryBackOnView(Ut.f("%d번 글은 존재하지 않습니다!", id));
 		}
 
 		ResultData actorCanModifyRd = articleService.actorCanModify(rq.getLoginedMemberId(), article);
 
 		if (actorCanModifyRd.isFail()) {
-			return actorCanModifyRd;
+			return rq.jsHitoryBackOnView(actorCanModifyRd.getMsg());
 		}
 
-		return articleService.modifyArticle(id, title, body);
+		model.addAttribute("article", article);
 
+		return "usr/article/modify";
+	}
+
+	@RequestMapping("/usr/article/doModify")
+	@ResponseBody
+	public String doModify(HttpServletRequest req, int id, String title, String body) {
+		Rq rq = (Rq) req.getAttribute("rq");
+
+		Article article = articleService.getArticle(id);
+
+		if (article == null) {
+			return Ut.jsHitoryBack("F-1", Ut.f("%d번 글은 존재하지 않습니다@", id));
+		}
+
+		ResultData actorCanModifyRd = articleService.actorCanModify(rq.getLoginedMemberId(), article);
+
+		if (actorCanModifyRd.isFail()) {
+			return Ut.jsHitoryBack(actorCanModifyRd.getResultCode(), actorCanModifyRd.getMsg());
+		}
+
+		articleService.modifyArticle(id, title, body);
+
+		return Ut.jsReplace(Ut.f("%d번 글을 수정 했습니다", id), Ut.f("../article/detail?id=%d", id));
 	}
 
 	@RequestMapping("/usr/article/doDelete")
@@ -61,18 +84,25 @@ public class UsrArticleController {
 		return Ut.jsReplace(Ut.f("%d번 글을 삭제 했습니다", id), "../article/list");
 	}
 
-	@RequestMapping("/usr/article/write")
-	public String doWrite(Model model, HttpServletRequest req, String title, String body) {
+	@RequestMapping("/usr/article/doWrite")
+	@ResponseBody
+	public ResultData<Article> doWrite(HttpServletRequest req, String title, String body) {
 		Rq rq = (Rq) req.getAttribute("rq");
 
-//	 
-//		ResultData<Integer> writeArticleRd = articleService.writeArticle(rq.getLoginedMemberId(), title, body);
-//
-//		int id = (int) writeArticleRd.getData1();
-//
-//		Article article = articleService.getArticle(id);
+		if (Ut.empty(title)) {
+			return ResultData.from("F-1", "제목을 입력해주세요");
+		}
+		if (Ut.empty(body)) {
+			return ResultData.from("F-2", "내용을 입력해주세요");
+		}
 
-		return "usr/article/write";
+		ResultData<Integer> writeArticleRd = articleService.writeArticle(rq.getLoginedMemberId(), title, body);
+
+		int id = (int) writeArticleRd.getData1();
+
+		Article article = articleService.getArticle(id);
+
+		return ResultData.newData(writeArticleRd, "article", article);
 	}
 
 	@RequestMapping("/usr/article/list")
