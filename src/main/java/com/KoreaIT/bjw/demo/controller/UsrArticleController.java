@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.KoreaIT.bjw.demo.service.ArticleService;
+import com.KoreaIT.bjw.demo.service.BoardService;
 import com.KoreaIT.bjw.demo.util.Ut;
 import com.KoreaIT.bjw.demo.vo.Article;
+import com.KoreaIT.bjw.demo.vo.Board;
 import com.KoreaIT.bjw.demo.vo.ResultData;
 import com.KoreaIT.bjw.demo.vo.Rq;
 
@@ -21,6 +23,9 @@ public class UsrArticleController {
 
 	@Autowired
 	private ArticleService articleService;
+
+	@Autowired
+	private BoardService boardService;
 
 	@RequestMapping("/usr/article/modify")
 	public String showModify(HttpServletRequest req, Model model, int id) {
@@ -114,9 +119,14 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/list")
-	public String showList(Model model) {
+	public String showList(HttpServletRequest req, Model model, int boardId) {
+		Rq rq = (Rq) req.getAttribute("rq");
+
+		Board board = boardService.getBoardById(boardId);
+
 		List<Article> articles = articleService.getForPrintArticles();
 
+		model.addAttribute("board", board);
 		model.addAttribute("articles", articles);
 
 		return "usr/article/list";
