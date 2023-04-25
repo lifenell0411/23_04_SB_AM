@@ -1,6 +1,5 @@
 package com.KoreaIT.bjw.demo.repository;
 
-
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -31,10 +30,9 @@ public interface ArticleRepository {
 				AND A.boardId = #{boardId}
 			</if>
 			ORDER BY A.id DESC
-				<if test="limitFrom > 0">
-			LIMIT #{limitFrom}, #{limitTake}
+			<if test="limitFrom >= 0">
+				LIMIT #{limitFrom}, #{limitTake}
 			</if>
-			
 			</script>
 				""")
 	public List<Article> getForPrintArticles(int boardId, int limitFrom, int limitTake);
