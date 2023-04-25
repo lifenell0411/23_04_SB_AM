@@ -41,8 +41,39 @@
 				</tbody>
 
 			</table>
-		</div>
-	</div>
+
+           <!-- start of pagination -->
+<div class="pagination">
+    <c:choose>
+        <c:when test="${page > 1}">
+            <a href="?boardId=${board.id}&page=${page - 1}" class="page-link">&laquo;</a>
+        </c:when>
+        <c:otherwise>
+            <span class="page-link disabled">&laquo;</span>
+        </c:otherwise>
+    </c:choose>
+
+    <c:forEach var="pageNumber" begin="${startPage}" end="${endPage}">
+        <c:choose>
+            <c:when test="${pageNumber == page}">
+                <span class="page-link active">${pageNumber}</span>
+            </c:when>
+            <c:otherwise>
+                <a href="?boardId=${board.id}&page=${pageNumber}" class="page-link">${pageNumber}</a>
+            </c:otherwise>
+        </c:choose>
+    </c:forEach>
+
+    <c:choose>
+        <c:when test="${page < pageCount}">
+            <a href="?boardId=${board.id}&page=${page + 1}" class="page-link">&raquo;</a>
+        </c:when>
+        <c:otherwise>
+            <span class="page-link disabled">&raquo;</span>
+        </c:otherwise>
+    </c:choose>
+</div>
+<!-- end of pagination -->
 </section>
 
 <%@ include file="../common/foot.jspf"%>
