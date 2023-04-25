@@ -1,5 +1,6 @@
 package com.KoreaIT.bjw.demo.controller;
 
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -128,9 +129,11 @@ public class UsrArticleController {
 			return rq.jsHitoryBackOnView("없는 게시판이야");
 		}
 
+		int articlesCount = articleService.getArticlesCount(boardId);
 		List<Article> articles = articleService.getForPrintArticles(boardId);
 
 		model.addAttribute("board", board);
+		model.addAttribute("articlesCount", articlesCount);
 		model.addAttribute("articles", articles);
 
 		return "usr/article/list";
