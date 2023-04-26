@@ -1,8 +1,8 @@
 package com.KoreaIT.bjw.demo.repository;
-
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.KoreaIT.bjw.demo.vo.Article;
@@ -71,4 +71,7 @@ public interface ArticleRepository {
 				""")
 	public int getArticlesCount(int boardId);
 
+	
+	List<Article> getForPrintArticlesByKeyword(@Param("boardId") int boardId, @Param("searchKeyword") String searchKeyword, @Param("itemsInAPage") int itemsInAPage, @Param("limitFrom") int limitFrom);
+	int getArticlesCountByKeyword(@Param("boardId") int boardId, @Param("searchKeyword") String searchKeyword);
 }
