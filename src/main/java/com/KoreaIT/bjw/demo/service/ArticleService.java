@@ -1,5 +1,6 @@
 package com.KoreaIT.bjw.demo.service;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,17 +92,17 @@ public class ArticleService {
 	}
 
 	public List<Article> getForPrintArticles(int boardId, int itemsInAPage, int page) {
+		/*
+		 * SELECT * FROM article WHERE boardId = 1 ORDER BY id DESC LIMIT 0, 10
+		 */
 		int limitFrom = (page - 1) * itemsInAPage;
 		int limitTake = itemsInAPage;
-		
-		
-		return articleRepository.getForPrintArticles(boardId,limitFrom,limitTake);
+
+		return articleRepository.getForPrintArticles(boardId, limitFrom, limitTake);
 	}
 
-	public int getArticlesCount(int boardId) {
-		return articleRepository.getArticlesCount(boardId);
+	public int getArticlesCount(int boardId, String searchKeywordTypeCode, String searchKeyword) {
+		return articleRepository.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
 	}
-	
- 
- 
+
 }
