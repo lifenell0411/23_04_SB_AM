@@ -145,6 +145,9 @@ SET `body` = '내용6'
 WHERE id= 3;
 
 
+ALTER TABLE article ADD COLUMN hitCount INT(10) UNSIGNED NOT NULL;
+
+
 # 게시물 갯수 늘리기
 INSERT INTO article 
 ( 
