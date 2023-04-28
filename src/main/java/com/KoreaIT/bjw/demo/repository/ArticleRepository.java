@@ -140,5 +140,5 @@ public interface ArticleRepository {
 			</script>
 			""")
 	public int increaseBadReationPoint(int relId);
-
+ 
 }

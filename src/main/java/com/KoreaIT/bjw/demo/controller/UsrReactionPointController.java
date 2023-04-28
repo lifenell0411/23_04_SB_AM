@@ -52,6 +52,8 @@ public class UsrReactionPointController {
 
 		return rq.jsReplace("싫어요!", replaceUri);
 	}
+	
+	
 
 }
 
