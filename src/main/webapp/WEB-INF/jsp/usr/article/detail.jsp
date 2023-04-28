@@ -75,11 +75,13 @@
 								<div>
 									<span>
 										<span>&nbsp;</span>
-										<button>👍</button>
+										<a href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.currentUri}"
+											class="btn btn-xs">좋아요 👍</a>
 									</span>
 									<span>
 										<span>&nbsp;</span>
-										<button>👎</button>
+										<a href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.currentUri}"
+											class="btn btn-xs">싫어요 👎</a>
 									</span>
 								</div>
 							</c:if>
@@ -122,10 +124,3 @@
 
 
 <%@ include file="../common/foot.jspf"%>
-Footer
-© 2023 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-Status
