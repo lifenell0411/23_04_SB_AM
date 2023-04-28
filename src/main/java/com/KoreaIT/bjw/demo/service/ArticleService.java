@@ -1,5 +1,4 @@
 package com.KoreaIT.bjw.demo.service;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,10 +117,4 @@ public class ArticleService {
 		return articleRepository.getArticleHitCount(id);
 	}
 
-	public boolean actorCanMakeReaction(int actorId, int id) {
-		return articleRepository.getSumReactionPointByMemberId(actorId, id) == 0;
-	}
-
-}
-
- 
+} 

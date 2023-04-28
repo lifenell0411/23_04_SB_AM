@@ -9,7 +9,7 @@ import com.KoreaIT.bjw.demo.service.BoardService;
 import com.KoreaIT.bjw.demo.vo.Rq;
 
 @Controller
-public class UrlReactionController {
+public class ReactionPointController {
 
 	@Autowired
 	private ArticleService articleService;

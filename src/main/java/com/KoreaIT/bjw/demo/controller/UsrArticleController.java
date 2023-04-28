@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.KoreaIT.bjw.demo.service.ArticleService;
 import com.KoreaIT.bjw.demo.service.BoardService;
+import com.KoreaIT.bjw.demo.service.ReactionPointService;
 import com.KoreaIT.bjw.demo.util.Ut;
 import com.KoreaIT.bjw.demo.vo.Article;
 import com.KoreaIT.bjw.demo.vo.Board;
@@ -27,6 +28,8 @@ public class UsrArticleController {
 	private BoardService boardService;
 	@Autowired
 	private Rq rq;
+	@Autowired
+	private ReactionPointService reactionPointService;
 
 	@RequestMapping("/usr/article/list")
 	public String showList(Model model, @RequestParam(defaultValue = "1") int boardId,
@@ -152,7 +155,8 @@ public class UsrArticleController {
 
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
-		boolean actorCanMakeReaction = articleService.actorCanMakeReaction(rq.getLoginedMemberId(), id);
+		boolean actorCanMakeReaction = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), "article",
+				id);
 
 		model.addAttribute("article", article);
 		model.addAttribute("actorCanMakeReaction", actorCanMakeReaction);
