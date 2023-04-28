@@ -69,16 +69,19 @@
 					<tr>
 						<th>추천</th>
 						<td>
-							<span>좋아요 : ${article.extra__goodReactionPoint }</span>
+							<span>&nbsp;좋아요 : ${article.goodReactionPoint }&nbsp;</span>
+							<span>&nbsp;싫어요 : ${article.badReactionPoint }&nbsp;</span>
 							<c:if test="${actorCanMakeReaction }">
-								<span>
-									<span>&nbsp;</span>
-									<button>👍</button>
-								</span>
-								<span>
-									<span>&nbsp;</span>
-									<button>👎</button>
-								</span>
+								<div>
+									<span>
+										<span>&nbsp;</span>
+										<button>👍</button>
+									</span>
+									<span>
+										<span>&nbsp;</span>
+										<button>👎</button>
+									</span>
+								</div>
 							</c:if>
 						</td>
 					</tr>
@@ -119,3 +122,10 @@
 
 
 <%@ include file="../common/foot.jspf"%>
+Footer
+© 2023 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Security
+Status
