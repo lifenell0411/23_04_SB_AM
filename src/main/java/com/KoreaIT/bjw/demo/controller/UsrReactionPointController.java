@@ -1,6 +1,7 @@
 package com.KoreaIT.bjw.demo.controller;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +35,7 @@ public class UsrReactionPointController {
 			rq.jsHitoryBack(rd.getMsg(), "좋아요 실패");
 		}
 
-		return rq.jsReplace("좋아요!", replaceUri);
+		return rq.jsReplace(rd.getMsg(), replaceUri);
 	}
 
 	@RequestMapping("/usr/reactionPoint/doBadReaction")
@@ -53,7 +54,7 @@ public class UsrReactionPointController {
 			rq.jsHitoryBack(rd.getMsg(), "좋아요 실패");
 		}
 
-		return rq.jsReplace("싫어요!", replaceUri);
+		return rq.jsReplace(rd.getMsg(), replaceUri);
 	}
 
 	@RequestMapping("/usr/reactionPoint/doCancelGoodReaction")
@@ -73,7 +74,7 @@ public class UsrReactionPointController {
 			rq.jsHitoryBack(rd.getMsg(), "좋아요 취소 실패");
 		}
 
-		return rq.jsReplace("좋아요 취소!", replaceUri);
+		return rq.jsReplace(rd.getMsg(), replaceUri);
 	}
 
 	@RequestMapping("/usr/reactionPoint/doCancelBadReaction")
@@ -93,8 +94,7 @@ public class UsrReactionPointController {
 			rq.jsHitoryBack(rd.getMsg(), "싫어요 취소 실패");
 		}
 
-		return rq.jsReplace("싫어요 취소!", replaceUri);
+		return rq.jsReplace(rd.getMsg(), replaceUri);
 	}
 
 }
- 
