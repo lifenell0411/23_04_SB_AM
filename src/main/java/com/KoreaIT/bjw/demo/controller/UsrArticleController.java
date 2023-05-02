@@ -1,6 +1,5 @@
 package com.KoreaIT.bjw.demo.controller;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +12,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.KoreaIT.bjw.demo.service.ArticleService;
 import com.KoreaIT.bjw.demo.service.BoardService;
 import com.KoreaIT.bjw.demo.service.ReactionPointService;
+import com.KoreaIT.bjw.demo.service.ReplyService;
 import com.KoreaIT.bjw.demo.util.Ut;
 import com.KoreaIT.bjw.demo.vo.Article;
 import com.KoreaIT.bjw.demo.vo.Board;
+import com.KoreaIT.bjw.demo.vo.Reply;
 import com.KoreaIT.bjw.demo.vo.ResultData;
 import com.KoreaIT.bjw.demo.vo.Rq;
 
@@ -26,6 +27,8 @@ public class UsrArticleController {
 	private ArticleService articleService;
 	@Autowired
 	private BoardService boardService;
+	@Autowired
+	private ReplyService replyService;
 	@Autowired
 	private Rq rq;
 	@Autowired
@@ -50,6 +53,12 @@ public class UsrArticleController {
 
 		List<Article> articles = articleService.getForPrintArticles(boardId, itemsInAPage, page, searchKeywordTypeCode,
 				searchKeyword);
+
+//		List<Reply> replies = replyService.getForPrintReplies(rq.getLoginedMemberId(), "article", id);
+//
+//		int repliesCount = replies.size();
+//
+//		model.addAttribute("repliesCount", repliesCount);
 
 		model.addAttribute("searchKeywordTypeCode", searchKeywordTypeCode);
 		model.addAttribute("searchKeyword", searchKeyword);
@@ -158,6 +167,11 @@ public class UsrArticleController {
 		ResultData actorCanMakeReactionRd = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(),
 				"article", id);
 
+		List<Reply> replies = replyService.getForPrintReplies(rq.getLoginedMemberId(), "article", id);
+
+		int repliesCount = replies.size();
+
+		model.addAttribute("repliesCount", repliesCount);
 		model.addAttribute("article", article);
 		model.addAttribute("actorCanMakeReactionRd", actorCanMakeReactionRd);
 		model.addAttribute("actorCanMakeReaction", actorCanMakeReactionRd.isSuccess());
