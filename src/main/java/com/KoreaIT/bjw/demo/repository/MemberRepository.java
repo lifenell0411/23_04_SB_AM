@@ -57,4 +57,6 @@ public interface MemberRepository {
 			""")
 	Member getMemberByloginPw(String loginId, String loginPw);
 
+ 
+
 }

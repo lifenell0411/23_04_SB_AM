@@ -49,5 +49,14 @@ public class MemberService {
 	public Member getMemberById(int id) {
 		return memberRepository.getMemberById(id);
 	}
+	public Member getForPrintMember(int actorId, int id) {
+		Member member = memberRepository.getMemberById(id);
+ 
+		return member;
+	}
 
+	public ResultData actorCanModify(int loginedMemberId, Member member) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

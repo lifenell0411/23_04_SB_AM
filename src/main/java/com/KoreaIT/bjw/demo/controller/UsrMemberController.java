@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -115,4 +116,26 @@ public class UsrMemberController {
 
 		return "usr/member/checkPw";
 	}
+	
+	@RequestMapping("/usr/member/doCheckPw")
+	public String doCheckPw() {
+
+		return "usr/member/modify";
+	}
+	@RequestMapping("/usr/member/doModify")
+	public String doModify(Model model, int id) {
+
+		Member member = memberService.getForPrintMember(rq.getLoginedMemberId(), id);
+ 
+		ResultData actorCanModifyRd = memberService.actorCanModify(rq.getLoginedMemberId(), member);
+
+		if (actorCanModifyRd.isFail()) {
+			return rq.jsHitoryBackOnView(actorCanModifyRd.getMsg());
+		}
+
+		model.addAttribute("member", member);
+
+		return "usr/member/modify";
+	}
+
 }
