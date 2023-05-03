@@ -103,12 +103,16 @@ public class UsrMemberController {
 
 		return Ut.jsReplace("S-1", "로그아웃 되었습니다", "/");
 	}
+
 	@RequestMapping("/usr/member/myPage")
- 
-	public String showMyPage(String loginId) {
+	public String showMyPage() {
 
-		Member member = memberService.getMemberByLoginId(loginId);
+		return "usr/member/myPage";
+	}
 
-		return "/usr/member/myPage";
+	@RequestMapping("/usr/member/checkPw")
+	public String showCheckPw() {
+
+		return "usr/member/checkPw";
 	}
 }
