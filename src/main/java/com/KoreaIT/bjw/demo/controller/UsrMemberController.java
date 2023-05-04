@@ -1,12 +1,12 @@
 package com.KoreaIT.bjw.demo.controller;
 
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.KoreaIT.bjw.demo.service.MemberService;
@@ -59,13 +59,13 @@ public class UsrMemberController {
 	}
 
 	@RequestMapping("/usr/member/login")
-	public String showLogin(HttpServletRequest request,HttpSession httpSession) {
+	public String showLogin(HttpSession httpSession) {
 		return "usr/member/login";
 	}
 
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public String doLogin(String loginId, String loginPw) {
+	public String doLogin(String loginId, String loginPw, @RequestParam(defaultValue = "/") String afterLoginUri) {
 
 		if (rq.isLogined()) {
 			return Ut.jsHitoryBack("F-5", "이미 로그인 상태입니다");
@@ -88,10 +88,9 @@ public class UsrMemberController {
 			return Ut.jsHitoryBack("F-4", Ut.f("비밀번호가 일치하지 않습니다"));
 		}
 
-		
 		rq.login(member);
 
-		return Ut.jsReplace("S-1", Ut.f("%s님 환영합니다", member.getName()), "/");
+		return Ut.jsReplace("S-1", Ut.f("%s님 환영합니다", member.getName()), afterLoginUri);
 	}
 
 	@RequestMapping("/usr/member/doLogout")
