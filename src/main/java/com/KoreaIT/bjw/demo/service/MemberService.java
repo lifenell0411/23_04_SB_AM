@@ -1,5 +1,6 @@
 package com.KoreaIT.bjw.demo.service;
 
+
 import org.springframework.stereotype.Service;
 
 import com.KoreaIT.bjw.demo.repository.MemberRepository;
@@ -49,14 +50,10 @@ public class MemberService {
 	public Member getMemberById(int id) {
 		return memberRepository.getMemberById(id);
 	}
-	public Member getForPrintMember(int actorId, int id) {
-		Member member = memberRepository.getMemberById(id);
- 
-		return member;
+
+	public ResultData modify(int id, String loginPw, String name, String nickname, String cellphoneNum, String email) {
+		memberRepository.modify(id,loginPw, name, nickname, cellphoneNum, email);
+		return ResultData.from("S-1", "회원 정보 수정이 완료되었습니다");
 	}
 
-	public ResultData actorCanModify(int loginedMemberId, Member member) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

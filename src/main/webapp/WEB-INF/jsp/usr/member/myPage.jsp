@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="MEMBER MYPAGE" />
 <%@ include file="../common/head.jspf"%>
-<%@ page import="com.KoreaIT.cwy.demo.util.Ut"%>
+<%@ page import="com.KoreaIT.bjw.demo.util.Ut"%>
 <hr />
 
 <section class="mt-8 text-xl">
