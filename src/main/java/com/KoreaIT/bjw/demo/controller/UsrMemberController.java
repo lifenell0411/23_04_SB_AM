@@ -1,6 +1,7 @@
 package com.KoreaIT.bjw.demo.controller;
 
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +59,7 @@ public class UsrMemberController {
 	}
 
 	@RequestMapping("/usr/member/login")
-	public String showLogin(HttpSession httpSession) {
+	public String showLogin(HttpServletRequest request,HttpSession httpSession) {
 		return "usr/member/login";
 	}
 
@@ -87,6 +88,7 @@ public class UsrMemberController {
 			return Ut.jsHitoryBack("F-4", Ut.f("비밀번호가 일치하지 않습니다"));
 		}
 
+		
 		rq.login(member);
 
 		return Ut.jsReplace("S-1", Ut.f("%s님 환영합니다", member.getName()), "/");
