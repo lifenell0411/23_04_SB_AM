@@ -7,18 +7,22 @@
 <!-- Reply modify 관련 -->
 <script type="text/javascript">
 	let ReplyModify__submitFormDone = false;
+
 	function ReplyModify__submit(form) {
 		if (ReplyModify__submitFormDone) {
 			return;
 		}
 		form.body.value = form.body.value.trim();
+
 		if (form.body.value.length == 0) {
 			alert('내용을 입력해주세요');
 			form.body.focus();
 			return;
 		}
+
 		ReplyModify__submitFormDone = true;
 		form.submit();
+
 	}
 </script>
 
@@ -27,6 +31,7 @@
 		<div class="table-box-type-1">
 			<form action="../reply/doModify" method="POST" onsubmit="ReplyModify__submit(this); return false;">
 				<input type="hidden" name="id" value="${reply.id }" />
+				<input type="hidden" name="replaceUri" value="${param.replaceUri }" />
 				<table>
 					<colgroup>
 						<col width="200" />
