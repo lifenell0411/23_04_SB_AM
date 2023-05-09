@@ -3,6 +3,9 @@
 <c:set var="pageTitle" value="JOIN" />
 <%@ include file="../common/head.jspf"%>
 
+<!-- lodash debounce -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+
 <script>
 	let submitJoinFormDone = false;
 	let validLoginId = "";
@@ -19,7 +22,7 @@
 		}
 
 		if (form.loginId.value != validLoginId) {
-			alert('사용할 수 없는 아이디입니다');
+			alert('사용할 수 없는 아이디야');
 			form.loginId.focus();
 			return;
 		}
@@ -64,34 +67,35 @@
 	}
 
 	function checkLoginIdDup(el) {
-	    $('.checkDup-msg').empty();
-	    const form = $(el).closest('form').get(0);
+		$('.checkDup-msg').empty();
+		const form = $(el).closest('form').get(0);
 
-	    const regExp = /^[a-zA-Z0-9]+$/; // 영어와 숫자로만 이루어져 있는지 확인하는 정규식
+		if (form.loginId.value.length == 0) {
+			validLoginId = '';
+			return;
+		}
 
-	    if (form.loginId.value.length < 5) {
-	        $('.checkDup-msg').html('<div class="mt-2">아이디를 5글자 이상 입력해주세요.</div>');
-	        validLoginId = '';
-	        return;
-	    } else if (!regExp.test(form.loginId.value)) { // 입력된 아이디가 영어와 숫자로만 이루어져 있는지 확인
-	        $('.checkDup-msg').html('<div class="mt-2">아이디는 영어와 숫자로만 구성될 수 있습니다.</div>');
-	        validLoginId = '';
-	        return;
-	    }
+		if (validLoginId == form.loginId.value) {
+			return;
+		}
 
-	    $.get('../member/getLoginIdDup', {
-	        isAjax : 'Y',
-	        loginId : form.loginId.value
-	    }, function(data) {
-	        $('.checkDup-msg').html('<div class="mt-2">' + data.msg + '</div>')
-	        if (data.success) {
-	            validLoginId = data.data1;
-	        } else {
-	            validLoginId = '';
-	        }
-	    }, 'json');
+		$.get('../member/getLoginIdDup', {
+			isAjax : 'Y',
+			loginId : form.loginId.value
+		}, function(data) {
+
+			$('.checkDup-msg').html('<div class="mt-2">' + data.msg + '</div>')
+			if (data.success) {
+				validLoginId = data.data1;
+			} else {
+				validLoginId = '';
+			}
+
+		}, 'json');
+
 	}
 
+	const checkLoginIdDupDebounced = _.debounce(checkLoginIdDup, 600);
 </script>
 
 <section class="mt-8 text-xl">
@@ -107,10 +111,9 @@
 					<tr>
 						<th>아이디</th>
 						<td>
-							<input  name="loginId" class="w-full input input-bordered  max-w-xs"
-								placeholder="아이디를 입력해주세요"  autocomplete="off"  onblur="checkLoginIdDup(this)"/>
-						 
-							<div class="checkDup-msg" ></div>
+							<input onkeyup="checkLoginIdDupDebounced(this);" name="loginId" class="w-full input input-bordered  max-w-xs"
+								placeholder="아이디를 입력해주세요" autocomplete="off" />
+							<div class="checkDup-msg"></div>
 						</td>
 					</tr>
 					<tr>
