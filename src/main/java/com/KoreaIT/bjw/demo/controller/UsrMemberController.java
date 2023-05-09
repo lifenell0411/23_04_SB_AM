@@ -39,10 +39,10 @@ public class UsrMemberController {
 		Member existsMember = memberService.getMemberByLoginId(loginId);
 
 		if (existsMember != null) {
-			return ResultData.from("F-2", "해당 아이디는 이미 사용중이야", "loginId", loginId);
+			return ResultData.from("F-2", "해당 아이디는 이미 사용중입니다", "loginId", loginId);
 		}
 
-		return ResultData.from("S-1", "사용 가능!", "loginId", loginId);
+		return ResultData.from("S-1", "사용 가능한 아이디입니다", "loginId", loginId);
 	}
 
 	@RequestMapping("/usr/member/doJoin")

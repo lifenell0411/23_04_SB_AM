@@ -2,8 +2,10 @@ package com.KoreaIT.bjw.demo.repository;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.springframework.stereotype.Repository;
 
 import com.KoreaIT.bjw.demo.vo.Member;
 
@@ -75,5 +77,9 @@ public interface MemberRepository {
 			</script>
 			""")
 	void modify(int id, String loginPw, String name, String nickname, String cellphoneNum, String email);
-
+	@Repository
+	public interface MemberRepository extends JpaRepository<Member, Long> {
+	    @Query("SELECT COUNT(m) = 0 FROM Member m WHERE m.loginId = :loginId")
+	    boolean isJoinableLoginId(@Param("loginId") String loginId);
+	}
 }

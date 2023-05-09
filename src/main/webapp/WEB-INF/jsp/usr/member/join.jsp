@@ -19,7 +19,7 @@
 		}
 
 		if (form.loginId.value != validLoginId) {
-			alert('사용할 수 없는 아이디야');
+			alert('사용할 수 없는 아이디입니다');
 			form.loginId.focus();
 			return;
 		}
@@ -66,11 +66,12 @@
 	function checkLoginIdDup(el) {
 		$('.checkDup-msg').empty();
 		const form = $(el).closest('form').get(0);
-
-		if (form.loginId.value.length == 0) {
-			validLoginId = '';
-			return;
-		}
+		 
+		if (form.loginId.value.length < 5) {
+			  $('.checkDup-msg').html('<div class="mt-2">아이디를 5글자 이상 입력해주세요.</div>');
+	        validLoginId = '';
+	        return;
+	    }
 
 		$.get('../member/getLoginIdDup', {
 			isAjax : 'Y',
@@ -101,9 +102,10 @@
 					<tr>
 						<th>아이디</th>
 						<td>
-							<input onkeyup="checkLoginIdDup(this);" name="loginId" class="w-full input input-bordered  max-w-xs"
-								placeholder="아이디를 입력해주세요"  autocomplete="off"/>
-							<div class="checkDup-msg"></div>
+							<input  name="loginId" class="w-full input input-bordered  max-w-xs"
+								placeholder="아이디를 입력해주세요"  autocomplete="off"  onblur="checkLoginIdDup(this)"/>
+						 
+							<div class="checkDup-msg" ></div>
 						</td>
 					</tr>
 					<tr>
