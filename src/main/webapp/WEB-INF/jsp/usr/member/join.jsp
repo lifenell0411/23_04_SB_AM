@@ -64,29 +64,34 @@
 	}
 
 	function checkLoginIdDup(el) {
-		$('.checkDup-msg').empty();
-		const form = $(el).closest('form').get(0);
-		 
-		if (form.loginId.value.length < 5) {
-			  $('.checkDup-msg').html('<div class="mt-2">아이디를 5글자 이상 입력해주세요.</div>');
+	    $('.checkDup-msg').empty();
+	    const form = $(el).closest('form').get(0);
+
+	    const regExp = /^[a-zA-Z0-9]+$/; // 영어와 숫자로만 이루어져 있는지 확인하는 정규식
+
+	    if (form.loginId.value.length < 5) {
+	        $('.checkDup-msg').html('<div class="mt-2">아이디를 5글자 이상 입력해주세요.</div>');
+	        validLoginId = '';
+	        return;
+	    } else if (!regExp.test(form.loginId.value)) { // 입력된 아이디가 영어와 숫자로만 이루어져 있는지 확인
+	        $('.checkDup-msg').html('<div class="mt-2">아이디는 영어와 숫자로만 구성될 수 있습니다.</div>');
 	        validLoginId = '';
 	        return;
 	    }
 
-		$.get('../member/getLoginIdDup', {
-			isAjax : 'Y',
-			loginId : form.loginId.value
-		}, function(data) {
-
-			$('.checkDup-msg').html('<div class="mt-2">' + data.msg + '</div>')
-			if (data.success) {
-				validLoginId = data.data1;
-			} else {
-				validLoginId = '';
-			}
-
-		}, 'json');
+	    $.get('../member/getLoginIdDup', {
+	        isAjax : 'Y',
+	        loginId : form.loginId.value
+	    }, function(data) {
+	        $('.checkDup-msg').html('<div class="mt-2">' + data.msg + '</div>')
+	        if (data.success) {
+	            validLoginId = data.data1;
+	        } else {
+	            validLoginId = '';
+	        }
+	    }, 'json');
 	}
+
 </script>
 
 <section class="mt-8 text-xl">
